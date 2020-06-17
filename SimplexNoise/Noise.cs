@@ -90,7 +90,7 @@ namespace SimplexNoise
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
-        private static float Generate(float x)
+        public static float Generate(float x)
         {
             var i0 = FastFloor(x);
             var i1 = i0 + 1;
@@ -115,7 +115,7 @@ namespace SimplexNoise
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        private static float Generate(float x, float y)
+        public static float Generate(float x, float y)
         {
             const float F2 = 0.366025403f; // F2 = 0.5*(sqrt(3.0)-1.0)
             const float G2 = 0.211324865f; // G2 = (3.0-Math.sqrt(3.0))/6.0
@@ -185,7 +185,7 @@ namespace SimplexNoise
         }
 
 
-        private static float Generate(float x, float y, float z)
+        public static float Generate(float x, float y, float z)
         {
             // Simple skewing factors for the 3D case
             const float F3 = 0.333333333f;
@@ -316,7 +316,7 @@ namespace SimplexNoise
             129,22,39,253, 19,98,108,110,79,113,224,232,178,185, 112,104,218,246,97,228,
             251,34,242,193,238,210,144,12,191,179,162,241, 81,51,145,235,249,14,239,107,
             49,192,214, 31,181,199,106,157,184, 84,204,176,115,121,50,45,127, 4,150,254,
-            138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180 
+            138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180
         };
 
         private static int FastFloor(float x)
@@ -352,15 +352,6 @@ namespace SimplexNoise
             var u = h < 8 ? x : y; // gradient directions, and compute dot product.
             var v = h < 4 ? y : h == 12 || h == 14 ? x : z; // Fix repeats at h = 12 to 15
             return ((h & 1) != 0 ? -u : u) + ((h & 2) != 0 ? -v : v);
-        }
-
-        private static float Grad(int hash, float x, float y, float z, float t)
-        {
-            var h = hash & 31;      // Convert low 5 bits of hash code into 32 simple
-            var u = h < 24 ? x : y; // gradient directions, and compute dot product.
-            var v = h < 16 ? y : z;
-            var w = h < 8 ? z : t;
-            return ((h & 1) != 0 ? -u : u) + ((h & 2) != 0 ? -v : v) + ((h & 4) != 0 ? -w : w);
         }
     }
 }
